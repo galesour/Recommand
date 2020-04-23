@@ -1,7 +1,7 @@
 '''
 @Author: 风满楼
 @Date: 2020-04-22 19:57:31
-@LastEditTime: 2020-04-23 19:52:31
+@LastEditTime: 2020-04-23 19:54:00
 @LastEditors: Please set LastEditors
 @Description: 实现FM模型
 @FilePath: /eyepetizer_recommends/recommends/frame_sort/models/fm.py
@@ -13,6 +13,7 @@ from keras import Model
 from keras.layers import Input
 from layers.one_order_layer import OneOrder
 from sklearn import preprocessing
+from sklearn.preprocessing import LabelEncoder
 from input import SparseClass, DenseClass, get_input_layer
 
 if __name__ == "__main__":
