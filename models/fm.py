@@ -1,7 +1,7 @@
 '''
 @Author: 风满楼
 @Date: 2020-04-22 19:57:31
-@LastEditTime: 2020-04-22 21:44:05
+@LastEditTime: 2020-04-23 17:58:55
 @LastEditors: Please set LastEditors
 @Description: 实现FM模型
 @FilePath: /eyepetizer_recommends/recommends/frame_sort/models/fm.py
@@ -12,31 +12,27 @@ import pandas as pd
 from keras import Model
 from keras.layers import Input
 from layers.one_order_layer import OneOrder
+from sklearn import preprocessing
+from input import SparseClass, DenseClass, get_input_layer
 
 if __name__ == "__main__":
-    data = pd.read_csv('../data_set/criteo_sample.txt') # 读取样例数据
+    # 前期的数据处理
+    data = pd.read_csv('../data_set/criteo_sample.txt')[20] # 读取样例数据
     labels = data['label']
     sparse_inputs = ['I{}'.format(i) for i in range(1,14)] # 连续特征
     dense_inputs = ['C{}'.format(i) for i in range(1,27)] # 离散特征
-    
     data[sparse_inputs] = data[sparse_inputs].fillna('-1', ) # 对数据中缺失值的处理
     data[dense_inputs] = data[dense_inputs].fillna(0, ) # 对数据中缺失值的处理
-   
-    print(data[sparse_inputs][0:10])
-    print(data[dense_inputs][0:10])
-    # sparse_inputs = [
-    #     Input(shape=(2,), name='userType'),
-    #     Input(shape=(2,), name='gender'),
-    #     Input(shape=(10,), name='category'),
-    # ]
-    # dense_inputs = [
-    #     Input(shape=(1,), name='collection_count'),
-    #     Input(shape=(1,), name='share_count'),
-    #     Input(shape=(1,), name='play_count'),
-    #     Input(shape=(1,), name='collect_share_count'),
-    # ]
-    # y_one_order = OneOrder()([sparse_inputs, dense_inputs])
-    # model = Model(inputs=[sparse_inputs, dense_inputs], outputs = y_one_order)
-    # model.summary()
-    
-    
+    for feat in sparse_inputs: 
+        lbe = preprocessing.labelEncoder()
+        data[feat] = lbe.fit_transform(data[feat]) # 对离散数据labelencoder编码
+    mms = MinMaxScaler(feature_range=(0, 1))
+    data[dense_features] = mms.fit_transform(data[dense_features])
+    sparse_input_column = [SparseClass(feat_name=feat, voca_size=data[feat].unique()) for feat in sparse_inputs]
+    dense_input_column = [DenseClass(feat_name=feat) for feat in dense_inputs]
+    sparse_input_layers, dense_input_layers = get_input_layer(sparse_input_column + dense_input_column)
+
+    # 模型的构建
+    y_one_order = OneOrder()([sparse_input_layers, dense_input_layers])
+    model = Model(inputs=[sparse_input_layers, dense_input_layers], outputs=y_one_order)
+    model.summary()
