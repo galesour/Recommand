@@ -1,7 +1,7 @@
 '''
 @Author: 风满楼
 @Date: 2020-04-22 19:57:31
-@LastEditTime: 2020-04-23 19:47:37
+@LastEditTime: 2020-04-23 19:51:52
 @LastEditors: Please set LastEditors
 @Description: 实现FM模型
 @FilePath: /eyepetizer_recommends/recommends/frame_sort/models/fm.py
@@ -21,13 +21,15 @@ if __name__ == "__main__":
     labels = data['label']
     sparse_inputs = ['I{}'.format(i) for i in range(1,14)] # 连续特征
     dense_inputs = ['C{}'.format(i) for i in range(1,27)] # 离散特征
-    data[sparse_inputs] = data[sparse_inputs].fillna('-1', ) # 对数据中缺失值的处理
-    data[dense_inputs] = data[dense_inputs].fillna(0, ) # 对数据中缺失值的处理
-    for feat in sparse_inputs: 
-        print(feat)
-        print(data[feat])
-        lbe = preprocessing.LabelEncoder()
-        data[feat] = lbe.fit_transform(data[feat]) # 对离散数据labelencoder编码
+    data[sparse_features] = data[sparse_features].fillna('-1', )
+    data[dense_features] = data[dense_features].fillna(0, )
+    target = ['label']
+
+    # 1.Label Encoding for sparse features,and do simple Transformation for dense features
+    for feat in sparse_features:
+        lbe = LabelEncoder()
+        data[feat] = lbe.fit_transform(data[feat])
+        
     mns = MinMaxScaler(feature_range=(0, 1))
     data[dense_features] = mns.fit_transform(data[dense_features])
     sparse_input_column = [SparseClass(feat_name=feat, voca_size=data[feat].unique()) for feat in sparse_inputs]
