@@ -1,7 +1,7 @@
 '''
 @Author: 风满楼
 @Date: 2020-04-22 19:57:31
-@LastEditTime: 2020-04-23 19:58:35
+@LastEditTime: 2020-04-23 19:59:57
 @LastEditors: Please set LastEditors
 @Description: 实现FM模型
 @FilePath: /eyepetizer_recommends/recommends/frame_sort/models/fm.py
@@ -34,7 +34,7 @@ if __name__ == "__main__":
     data[dense_features] = mms.fit_transform(data[dense_features]) #将离散数据做归一化
 
     # 2.count #unique features for each sparse field,and record dense feature field name
-    sparse_input_column = [SparseClass(feat_name=feat, voca_size=data[feat].nunique()) for feat in sparse_features]
+    sparse_input_column = [SparseClass(feat_name=feat, vocablary_size=data[feat].nunique()) for feat in sparse_features]
     dense_input_column = [DenseClass(feat_name=feat) for feat in dense_features]
     sparse_input_layers, dense_input_layers = get_input_layer(sparse_input_column + dense_input_column)
     print(sparse_input_layers[0].name)
