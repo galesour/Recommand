@@ -1,7 +1,7 @@
 '''
 @Author: 风满楼
 @Date: 2020-04-22 19:57:31
-@LastEditTime: 2020-04-23 18:17:42
+@LastEditTime: 2020-04-23 18:19:39
 @LastEditors: Please set LastEditors
 @Description: 实现FM模型
 @FilePath: /eyepetizer_recommends/recommends/frame_sort/models/fm.py
@@ -24,6 +24,7 @@ if __name__ == "__main__":
     data[sparse_inputs] = data[sparse_inputs].fillna('-1', ) # 对数据中缺失值的处理
     data[dense_inputs] = data[dense_inputs].fillna(0, ) # 对数据中缺失值的处理
     for feat in sparse_inputs: 
+        print(feat)
         lbe = preprocessing.labelEncoder()
         data[feat] = lbe.fit_transform(data[feat]) # 对离散数据labelencoder编码
     mms = MinMaxScaler(feature_range=(0, 1))
