@@ -1,7 +1,7 @@
 '''
 @Author: 风满楼
 @Date: 2020-04-22 19:57:31
-@LastEditTime: 2020-04-23 19:37:19
+@LastEditTime: 2020-04-23 19:47:37
 @LastEditors: Please set LastEditors
 @Description: 实现FM模型
 @FilePath: /eyepetizer_recommends/recommends/frame_sort/models/fm.py
@@ -25,10 +25,11 @@ if __name__ == "__main__":
     data[dense_inputs] = data[dense_inputs].fillna(0, ) # 对数据中缺失值的处理
     for feat in sparse_inputs: 
         print(feat)
+        print(data[feat])
         lbe = preprocessing.LabelEncoder()
         data[feat] = lbe.fit_transform(data[feat]) # 对离散数据labelencoder编码
-    mms = MinMaxScaler(feature_range=(0, 1))
-    data[dense_features] = mms.fit_transform(data[dense_features])
+    mns = MinMaxScaler(feature_range=(0, 1))
+    data[dense_features] = mns.fit_transform(data[dense_features])
     sparse_input_column = [SparseClass(feat_name=feat, voca_size=data[feat].unique()) for feat in sparse_inputs]
     dense_input_column = [DenseClass(feat_name=feat) for feat in dense_inputs]
     sparse_input_layers, dense_input_layers = get_input_layer(sparse_input_column + dense_input_column)
