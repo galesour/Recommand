@@ -1,7 +1,7 @@
 '''
 @Author: 风满楼
 @Date: 2020-04-22 19:57:31
-@LastEditTime: 2020-04-23 20:08:37
+@LastEditTime: 2020-04-23 20:12:36
 @LastEditors: Please set LastEditors
 @Description: 实现FM模型
 @FilePath: /eyepetizer_recommends/recommends/frame_sort/models/fm.py
@@ -29,19 +29,16 @@ if __name__ == "__main__":
     # 1.Label Encoding for sparse features,and do simple Transformation for dense features
     for feat in sparse_features:
         lbe = LabelEncoder()
-        data[feat] = lbe.fit_transform(data[feat]) #将数据中的离散特征做标准化
+        data[feat] = lbe.fit_transform(data[feat]) # standardization of the sparse feature
     mms = MinMaxScaler(feature_range=(0, 1))
-    data[dense_features] = mms.fit_transform(data[dense_features]) #将离散数据做归一化
+    data[dense_features] = mms.fit_transform(data[dense_features]) # Normalized of the dense feature
 
     # 2.count #unique features for each sparse field,and record dense feature field name
     sparse_input_column = [SparseClass(feat_name=feat, vocablary_size=data[feat].nunique()) for feat in sparse_features]
     dense_input_column = [DenseClass(feat_name=feat) for feat in dense_features]
     sparse_input_layers, dense_input_layers = get_input_layer(sparse_input_column + dense_input_column)
     # sparse_input_layers is the collection of Input layer
-    print(sparse_input_layers[0].name)
-    print(sparse_input_layers[0].shape)
-    print(dense_input_layers)
-    # 模型的构建
-    # y_one_order = OneOrder()([sparse_input_layers, dense_input_layers])
-    # model = Model(inputs=[sparse_input_layers, dense_input_layers], outputs=y_one_order)
-    # model.summary()
+    # building the model 
+    y_one_order = OneOrder()([sparse_input_layers, dense_input_layers])
+    model = Model(inputs=[sparse_input_layers, dense_input_layers], outputs=y_one_order)
+    model.summary()

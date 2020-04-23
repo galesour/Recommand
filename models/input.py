@@ -1,7 +1,7 @@
 '''
 @Author: your name
 @Date: 2020-04-23 17:11:14
-@LastEditTime: 2020-04-23 20:06:35
+@LastEditTime: 2020-04-23 20:10:42
 @LastEditors: Please set LastEditors
 @Description: In User Settings Edit
 @FilePath: /frame_sort/models/input.py
@@ -15,23 +15,27 @@ class SparseClass():
     @param {
         feat_name: 特征的名字
         vocablary_size: 特征中不重复的个数
+        embedding_dim: embedding后向量的维度
     } 
     @return: 
     '''
-    def __init__(self, feat_name, vocablary_size):
+    def __init__(self, feat_name, vocablary_size, embedding_dim=5):
         self.feat_name = feat_name
         self.vocablary_size = vocablary_size
+        self.embedding_dim = 5
 
 class DenseClass():
     '''
     @description: 处理连续数据的类
     @param {
         feat_name: 特征的名字
+        embedding_dim:embedding后向量的维度
     } 
     @return: 
     '''     
-    def __init__(self, feat_name):
+    def __init__(self, feat_name, embedding_dim=5):
         self.feat_name = feat_name
+        self.embedding_dim = 5
 
 def get_input_layer(all_input):
     sparse_input_layer_list = []
