@@ -1,7 +1,7 @@
 '''
 @Author: 风满楼
 @Date: 2020-04-22 20:00:48
-@LastEditTime: 2020-04-22 21:34:28
+@LastEditTime: 2020-04-23 20:31:02
 @LastEditors: Please set LastEditors
 @Description: In User Settings Edit
 @FilePath: /eyepetizer_recommends/recommends/frame_sort/layers/one_order.py
@@ -23,7 +23,9 @@ class OneOrder(Layer):
     
     def build(self, input_shape):
         self.n_sparse = len(input_shape[0])
-        self.n_dense = len(input_shape[0])
+        self.n_dense = len(input_shape[1])
+        print(n_sparse)
+        print(n_dense)
         self.dense_weights = self.add_weight(
             shape=(self.n_dense,1),
             initializer='glorot_uniform',
