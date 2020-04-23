@@ -1,7 +1,7 @@
 '''
 @Author: 风满楼
 @Date: 2020-04-22 19:57:31
-@LastEditTime: 2020-04-23 20:35:30
+@LastEditTime: 2020-04-23 20:46:59
 @LastEditors: Please set LastEditors
 @Description: 实现FM模型
 @FilePath: /eyepetizer_recommends/recommends/frame_sort/models/fm.py
@@ -39,8 +39,6 @@ if __name__ == "__main__":
     sparse_input_layers, dense_input_layers = get_input_layer(sparse_input_column + dense_input_column)
     # sparse_input_layers is the collection of Input layer
     # building the model 
-    print(sparse_input_layers)
-    print(dense_input_layers)
     y_one_order = OneOrder()([sparse_input_layers, dense_input_layers])
     model = Model(inputs=[sparse_input_layers, dense_input_layers], outputs=y_one_order)
     model.summary()
