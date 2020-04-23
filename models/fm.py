@@ -19,11 +19,10 @@ if __name__ == "__main__":
     sparse_title = ['l{}'.format(i) for i in range(1,14)] # 连续特征
     dense_title = ['C{}'.format(i) for i in range(1,29)] # 离散特征
     
+    print(data[sparse_title])
     data[sparse_title] = data[sparse_title].fillna('-1', ) # 对数据中缺失值的处理
     data[dense_title] = data[dense_title].fillna(0, ) # 对数据中缺失值的处理
-
-    print(data[sparse_title][0: 10])
-    print(data[dense_title][0: 10])    
+   
     # sparse_inputs = [
     #     Input(shape=(2,), name='userType'),
     #     Input(shape=(2,), name='gender'),
