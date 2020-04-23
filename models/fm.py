@@ -14,8 +14,8 @@ from keras.layers import Input
 from layers.one_order_layer import OneOrder
 
 if __name__ == "__main__":
-    
-    data = pd.read_csv('data_set/crite_sample.txt')
+
+    data = pd.read_csv('data_set/criteo_sample.txt')
     print(data)
     # sparse_inputs = [
     #     Input(shape=(2,), name='userType'),
