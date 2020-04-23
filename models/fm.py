@@ -1,7 +1,7 @@
 '''
 @Author: 风满楼
 @Date: 2020-04-22 19:57:31
-@LastEditTime: 2020-04-23 19:51:52
+@LastEditTime: 2020-04-23 19:52:31
 @LastEditors: Please set LastEditors
 @Description: 实现FM模型
 @FilePath: /eyepetizer_recommends/recommends/frame_sort/models/fm.py
@@ -19,8 +19,8 @@ if __name__ == "__main__":
     # 前期的数据处理
     data = pd.read_csv('../data_set/criteo_sample.txt')[0:20] # 读取样例数据
     labels = data['label']
-    sparse_inputs = ['I{}'.format(i) for i in range(1,14)] # 连续特征
-    dense_inputs = ['C{}'.format(i) for i in range(1,27)] # 离散特征
+    sparse_features = ['I{}'.format(i) for i in range(1,14)] # 连续特征
+    dense_features = ['C{}'.format(i) for i in range(1,27)] # 离散特征
     data[sparse_features] = data[sparse_features].fillna('-1', )
     data[dense_features] = data[dense_features].fillna(0, )
     target = ['label']
@@ -29,7 +29,7 @@ if __name__ == "__main__":
     for feat in sparse_features:
         lbe = LabelEncoder()
         data[feat] = lbe.fit_transform(data[feat])
-        
+
     mns = MinMaxScaler(feature_range=(0, 1))
     data[dense_features] = mns.fit_transform(data[dense_features])
     sparse_input_column = [SparseClass(feat_name=feat, voca_size=data[feat].unique()) for feat in sparse_inputs]
