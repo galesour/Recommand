@@ -1,7 +1,7 @@
 '''
 @Author: 风满楼
 @Date: 2020-04-22 20:00:48
-@LastEditTime: 2020-04-23 20:31:02
+@LastEditTime: 2020-04-23 20:45:41
 @LastEditors: Please set LastEditors
 @Description: In User Settings Edit
 @FilePath: /eyepetizer_recommends/recommends/frame_sort/layers/one_order.py
@@ -35,6 +35,7 @@ class OneOrder(Layer):
         super(OneOrder, self).build(input_shape)
 
     def call(self, inputs):
+        print(inputs)
         sparse_inputs, dense_inputs = inputs
         output = 0
         for sparse_input in sparse_inputs:
