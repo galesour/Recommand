@@ -16,11 +16,11 @@ from layers.one_order_layer import OneOrder
 if __name__ == "__main__":
     data = pd.read_csv('../data_set/criteo_sample.txt') # 读取样例数据
     labels = data['label']
-    sparse_title = ['I{}'.format(i) for i in range(1,14)] # 连续特征
-    dense_title = ['C{}'.format(i) for i in range(1,29)] # 离散特征
+    sparse_inputs = ['I{}'.format(i) for i in range(1,14)] # 连续特征
+    dense_inputs = ['C{}'.format(i) for i in range(1,29)] # 离散特征
     
-    data[sparse_inputs] = data[sparse_title].fillna('-1', ) # 对数据中缺失值的处理
-    data[dense_inputs] = data[dense_title].fillna(0, ) # 对数据中缺失值的处理
+    data[sparse_inputs] = data[sparse_inputs].fillna('-1', ) # 对数据中缺失值的处理
+    data[dense_inputs] = data[dense_inputs].fillna(0, ) # 对数据中缺失值的处理
    
     print(data[sparse_inputs][0:10])
     print(data[dense_inputs][0:10])
