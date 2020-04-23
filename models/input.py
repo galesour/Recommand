@@ -1,7 +1,7 @@
 '''
 @Author: your name
 @Date: 2020-04-23 17:11:14
-@LastEditTime: 2020-04-23 20:05:14
+@LastEditTime: 2020-04-23 20:06:35
 @LastEditors: Please set LastEditors
 @Description: In User Settings Edit
 @FilePath: /frame_sort/models/input.py
@@ -40,7 +40,7 @@ def get_input_layer(all_input):
         if isinstance(item, SparseClass):
             input_shape = (item.vocablary_size,)
             sparse_input_layer_list.append(Input(input_shape, name=item.feat_name))
-        elif isinsatnce(item, DenseClass):
+        elif isinstance(item, DenseClass):
             dense_input_layer_list.append(Input(shape=(1,), name=item.feat_name))
     return sparse_input_layer_list, dense_input_layer_list
 
