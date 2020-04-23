@@ -1,7 +1,7 @@
 '''
 @Author: 风满楼
 @Date: 2020-04-22 19:57:31
-@LastEditTime: 2020-04-23 18:19:39
+@LastEditTime: 2020-04-23 18:20:45
 @LastEditors: Please set LastEditors
 @Description: 实现FM模型
 @FilePath: /eyepetizer_recommends/recommends/frame_sort/models/fm.py
@@ -17,7 +17,7 @@ from input import SparseClass, DenseClass, get_input_layer
 
 if __name__ == "__main__":
     # 前期的数据处理
-    data = pd.read_csv('../data_set/criteo_sample.txt')[20] # 读取样例数据
+    data = pd.read_csv('../data_set/criteo_sample.txt') # 读取样例数据
     labels = data['label']
     sparse_inputs = ['I{}'.format(i) for i in range(1,14)] # 连续特征
     dense_inputs = ['C{}'.format(i) for i in range(1,27)] # 离散特征
