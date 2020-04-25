@@ -1,7 +1,7 @@
 '''
 @Author: 风满楼
 @Date: 2020-04-25 21:51:14
-@LastEditTime: 2020-04-25 22:39:47
+@LastEditTime: 2020-04-25 22:41:19
 @LastEditors: Please set LastEditors
 @Description: 实现DeepFM中的deep部分
 @FilePath: /frame_sort/layers/dnn_layer.py
@@ -24,7 +24,7 @@ class DeepOrder(Layer):
         dnn_input = Flatten()(all_fields) # None * (5 * 39)
         print(dnn_input.shape)
         output = 0
-        for i in self.height:
+        for i in range(self.height):
             dnn_input = Dense(self.width)(dnn_input)
         dnn_output = Dense(1)(dnn_input)
         print(dnn_output.shape)
