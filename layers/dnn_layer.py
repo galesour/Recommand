@@ -1,7 +1,7 @@
 '''
 @Author: 风满楼
 @Date: 2020-04-25 21:51:14
-@LastEditTime: 2020-04-25 22:35:57
+@LastEditTime: 2020-04-25 22:37:09
 @LastEditors: Please set LastEditors
 @Description: 实现DeepFM中的deep部分
 @FilePath: /frame_sort/layers/dnn_layer.py
@@ -14,7 +14,7 @@ class DeepOrder(Layer):
     def __init__(self, height, width):
         self.height = height # 深度部分的网络层数
         self.width = width # 深度部分中每层网络中神经元的个数
-        super(DeepOrder,self).__init__(height, width)
+        super(DeepOrder,self).__init__(**kwargs)
     def call(self, input):
         print('高阶项计算....')
         sparse_embedding_input, dense_embedding_input = input
