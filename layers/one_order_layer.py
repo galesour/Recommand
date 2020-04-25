@@ -1,13 +1,12 @@
 '''
 @Author: 风满楼
 @Date: 2020-04-22 20:00:48
-@LastEditTime: 2020-04-23 23:00:25
+@LastEditTime: 2020-04-25 16:02:20
 @LastEditors: Please set LastEditors
 @Description: In User Settings Edit
 @FilePath: /eyepetizer_recommends/recommends/frame_sort/layers/one_order.py
 '''
-from keras.engine.topology import Layer
-from keras.layers import Embedding, Input
+from keras.layers import Embedding, Input, Layer
 from keras import backend as K 
 
 class OneOrder(Layer):
@@ -32,7 +31,6 @@ class OneOrder(Layer):
         super(OneOrder, self).build(input_shape)
 
     def call(self, inputs):
-        print(inputs)
         sparse_inputs, dense_inputs = inputs
         output = 0
         for sparse_input in sparse_inputs:

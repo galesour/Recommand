@@ -1,9 +1,9 @@
 '''
-@Author: your name
+@Author: 风满楼
 @Date: 2020-04-23 17:11:14
-@LastEditTime: 2020-04-23 20:10:42
+@LastEditTime: 2020-04-25 15:19:40
 @LastEditors: Please set LastEditors
-@Description: In User Settings Edit
+@Description: 处理输入的类和功能函数
 @FilePath: /frame_sort/models/input.py
 '''
 
