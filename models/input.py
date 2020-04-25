@@ -1,13 +1,13 @@
 '''
 @Author: 风满楼
 @Date: 2020-04-23 17:11:14
-@LastEditTime: 2020-04-25 15:19:40
+@LastEditTime: 2020-04-25 16:59:49
 @LastEditors: Please set LastEditors
 @Description: 处理输入的类和功能函数
 @FilePath: /frame_sort/models/input.py
 '''
 
-from tensorflow.keras.layers import Input
+from tensorflow.keras.layers import Input, Embedding, Dense
 
 class SparseClass():
     '''
@@ -37,14 +37,22 @@ class DenseClass():
         self.feat_name = feat_name
         self.embedding_dim = 5
 
-def get_input_layer(all_input):
-    sparse_input_layer_list = []
-    dense_input_layer_list = []
-    for item in all_input:
-        if isinstance(item, SparseClass):
-            input_shape = (item.vocablary_size,)
-            sparse_input_layer_list.append(Input(input_shape, name=item.feat_name))
-        elif isinstance(item, DenseClass):
-            dense_input_layer_list.append(Input(shape=(1,), name=item.feat_name))
-    return sparse_input_layer_list, dense_input_layer_list
+def get_input_layer(all_input, embedding=False):
+    sparse_layer_list = []
+    dense_layer_list = []
+    if not embedding :
+        for item in all_input:
+            sparse_layer_list.append(Input(shape=(1,), name=item.feat_name))
+            dense_layer_list.append(Input(shape=(1,), name=item.feat_name))
+    else: 
+        for item in all_input:
+            if isinstance(item, SparseClass):
+                sparse_layer_list.append(
+                    Embedding(item.vocablary_size,item.embedding_dim)(Input(shape=(1,), name=item.feat_name))
+                    )
+            elif isinstance(item, DenseClass):
+                dense_layer_list.append(
+                    Dense(item.embedding_dim)(Input(shape=(1,), name=item.feat_name))
+                )
+    return sparse_layer_list, dense_layer_list
 
