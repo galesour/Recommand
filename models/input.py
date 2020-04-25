@@ -1,13 +1,13 @@
 '''
 @Author: 风满楼
 @Date: 2020-04-23 17:11:14
-@LastEditTime: 2020-04-25 17:34:30
+@LastEditTime: 2020-04-25 17:44:01
 @LastEditors: Please set LastEditors
 @Description: 处理输入的类和功能函数
 @FilePath: /frame_sort/models/input.py
 '''
 
-from tensorflow.keras.layers import Input, Embedding, Dense
+from tensorflow.keras.layers import Input, Embedding, Dense, Repeatvector
 
 class SparseClass():
     '''
@@ -48,11 +48,11 @@ def get_input_layer(all_input, embedding=False):
         for item in all_input:
             if isinstance(item, SparseClass):
                 sparse_layer_list.append(
-                    Embedding(item.vocablary_size,item.embedding_dim)(Input(shape=(1,), name=item.feat_name))[:,0,:]
+                    Embedding(item.vocablary_size,item.embedding_dim)(Input(shape=(1,), name=item.feat_name)) # (None, 1, 5)
                     )
             elif isinstance(item, DenseClass):
                 dense_layer_list.append(
-                    Dense(item.embedding_dim)(Input(shape=(1,), name=item.feat_name))
+                    Repeatvector(1)(Dense(item.embedding_dim)(Input(shape=(1,), name=item.feat_name)))
                 )
     return sparse_layer_list, dense_layer_list
 
