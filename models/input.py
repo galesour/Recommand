@@ -1,7 +1,7 @@
 '''
 @Author: 风满楼
 @Date: 2020-04-23 17:11:14
-@LastEditTime: 2020-04-25 16:59:49
+@LastEditTime: 2020-04-25 17:34:30
 @LastEditors: Please set LastEditors
 @Description: 处理输入的类和功能函数
 @FilePath: /frame_sort/models/input.py
@@ -48,7 +48,7 @@ def get_input_layer(all_input, embedding=False):
         for item in all_input:
             if isinstance(item, SparseClass):
                 sparse_layer_list.append(
-                    Embedding(item.vocablary_size,item.embedding_dim)(Input(shape=(1,), name=item.feat_name))
+                    Embedding(item.vocablary_size,item.embedding_dim)(Input(shape=(1,), name=item.feat_name))[:,0,:]
                     )
             elif isinstance(item, DenseClass):
                 dense_layer_list.append(
