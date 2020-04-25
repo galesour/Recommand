@@ -1,7 +1,7 @@
 '''
 @Author: 风满楼
 @Date: 2020-04-23 17:11:14
-@LastEditTime: 2020-04-25 17:45:11
+@LastEditTime: 2020-04-25 19:12:03
 @LastEditors: Please set LastEditors
 @Description: 处理输入的类和功能函数
 @FilePath: /frame_sort/models/input.py
@@ -55,4 +55,3 @@ def get_input_layer(all_input, embedding=False):
                     RepeatVector(1)(Dense(item.embedding_dim)(Input(shape=(1,), name=item.feat_name)))
                 )
     return sparse_layer_list, dense_layer_list
-

@@ -1,7 +1,7 @@
 '''
 @Author: 风满楼
 @Date: 2020-04-22 20:01:09
-@LastEditTime: 2020-04-25 17:09:38
+@LastEditTime: 2020-04-25 19:00:42
 @LastEditors: Please set LastEditors
 @Description: 实现FM算法的二阶项部分
 @FilePath: /eyepetizer_recommends/recommends/frame_sort/layers/tow_order_layer.py
@@ -12,11 +12,8 @@ class TwoOrder(Layer):
     def __init__(self, **kwargs):
         super(TwoOrder, self).__init__(**kwargs)
 
-    def build(self, input_shape):
-        pass 
-        super(TwoOrder, self).build(input_shape)
-
     def call(self, input):
+        sparse_embedding_list, dense_embedding_list = input
         
         pass 
 
