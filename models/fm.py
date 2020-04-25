@@ -1,7 +1,7 @@
 '''
 @Author: 风满楼
 @Date: 2020-04-22 19:57:31
-@LastEditTime: 2020-04-25 17:10:34
+@LastEditTime: 2020-04-25 17:18:06
 @LastEditors: Please set LastEditors
 @Description: 实现FM模型
 @FilePath: /eyepetizer_recommends/recommends/frame_sort/models/fm.py
@@ -14,7 +14,7 @@ from keras.layers import Input
 from layers.one_order_layer import OneOrder
 from layers.two_order_layer import TwoOrder
 from sklearn.preprocessing import LabelEncoder, MinMaxScaler
-from input import SparseClass, DenseClass, get_input_layer, get_embedding_layer
+from input import SparseClass, DenseClass, get_input_layer
 
 if __name__ == "__main__":
     # 前期的数据处理
@@ -37,7 +37,7 @@ if __name__ == "__main__":
     # 2.count #unique features for each sparse field,and record dense feature field name
     sparse_input_column = [SparseClass(feat_name=feat, vocablary_size=data[feat].nunique()) for feat in sparse_features]
     dense_input_column = [DenseClass(feat_name=feat) for feat in dense_features]
-    sparse_input_layers, dense_input_layers = get_input_layer(sparse_input_column + dense_input_column)
+    sparse_input_layers, dense_input_layers = get_input_layer(sparse_input_column + dense_input_column, embedding=False)
     sparse_embedding_layers, dense_embedding_layers = get_input_layer(sparse_input_column + dense_input_column, embedding=True)
     print(sparse_embedding_layers)
     print(dense_embedding_layers)
