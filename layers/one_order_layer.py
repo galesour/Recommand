@@ -1,7 +1,7 @@
 '''
 @Author: 风满楼
 @Date: 2020-04-22 20:00:48
-@LastEditTime: 2020-04-25 17:01:24
+@LastEditTime: 2020-04-25 21:30:53
 @LastEditors: Please set LastEditors
 @Description: In User Settings Edit
 @FilePath: /eyepetizer_recommends/recommends/frame_sort/layers/one_order.py
@@ -38,6 +38,7 @@ class OneOrder(Layer):
             output += Embedding(sparse_input.shape[-1], 1)(sparse_input)
         dense_inputs = K.concatenate(dense_inputs)
         output += K.dot(dense_inputs, self.dense_weights)
+        print('一阶项计算完成')
         return output
     
     def compute_output_shape(self, input_shape):
