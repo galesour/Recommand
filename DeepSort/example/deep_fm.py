@@ -1,9 +1,9 @@
 '''
 @Author: 风满楼
 @Date: 2020-04-26 18:12:47
-@LastEditTime: 2020-04-26 19:30:48
+@LastEditTime: 2020-04-26 20:07:51
 @LastEditors: Please set LastEditors
-@Description: DeepFM实现DeepFM的例子
+@Description: model of the DeepFM
 @FilePath: /frame_sort/DeepSort/example/deep_fm.py
 '''
 import sys 
