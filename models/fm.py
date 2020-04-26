@@ -1,7 +1,7 @@
 '''
 @Author: 风满楼
 @Date: 2020-04-22 19:57:31
-@LastEditTime: 2020-04-26 17:23:38
+@LastEditTime: 2020-04-26 17:25:37
 @LastEditors: Please set LastEditors
 @Description: 实现FM模型
 @FilePath: /eyepetizer_recommends/recommends/frame_sort/models/fm.py
@@ -11,7 +11,7 @@ sys.path.append('../')
 import pandas as pd 
 import numpy as np 
 import tensorflow as tf 
-tf.config.experimental_functions_run_eagerly(True)
+tf.config.experimental_run_functions_eagerly(True)
 from tensorflow.keras import Model
 from tensorflow.keras.layers import Input, Concatenate
 from tensorflow.keras import backend as K 
