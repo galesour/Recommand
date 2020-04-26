@@ -1,7 +1,7 @@
 '''
 @Author: 风满楼
 @Date: 2020-04-22 19:57:31
-@LastEditTime: 2020-04-26 17:44:54
+@LastEditTime: 2020-04-26 17:50:15
 @LastEditors: Please set LastEditors
 @Description: 实现FM模型
 @FilePath: /eyepetizer_recommends/recommends/frame_sort/models/fm.py
@@ -25,7 +25,7 @@ from input import SparseClass, DenseClass, get_input_layer, get_embedding_layer
 
 if __name__ == "__main__":
     # 前期的数据处理
-    data = pd.read_csv('../data_set/criteo_sample.txt')[0:20] # load data
+    data = pd.read_csv('/home/xddz/code/eyepetizer_recommends/data/dac/train.txt') # load data
     sparse_features = ['C' + str(i) for i in range(1, 27)]
     dense_features = ['I' + str(i) for i in range(1, 14)]
 
