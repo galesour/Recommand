@@ -1,7 +1,7 @@
 '''
 @Author: 风满楼
 @Date: 2020-04-22 19:57:31
-@LastEditTime: 2020-04-26 17:03:07
+@LastEditTime: 2020-04-26 17:10:23
 @LastEditors: Please set LastEditors
 @Description: 实现FM模型
 @FilePath: /eyepetizer_recommends/recommends/frame_sort/models/fm.py
@@ -29,7 +29,7 @@ if __name__ == "__main__":
 
     data[sparse_features] = data[sparse_features].fillna('-1', )
     data[dense_features] = data[dense_features].fillna(0, )
-    targets = ['label']
+    targets = data['label']
     # 1.Label Encoding for sparse features,and do simple Transformation for dense features
     for feat in sparse_features:
         lbe = LabelEncoder()
