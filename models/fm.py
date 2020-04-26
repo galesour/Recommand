@@ -1,7 +1,7 @@
 '''
 @Author: 风满楼
 @Date: 2020-04-22 19:57:31
-@LastEditTime: 2020-04-26 16:56:10
+@LastEditTime: 2020-04-26 16:58:17
 @LastEditors: Please set LastEditors
 @Description: 实现FM模型
 @FilePath: /eyepetizer_recommends/recommends/frame_sort/models/fm.py
@@ -31,7 +31,7 @@ if __name__ == "__main__":
     target = ['label']
     train_data = {}
     for item in sparse_features + dense_features:
-        train_data[item] = data[item]
+        train_data[item] = data[item].values.tolist()
     print(train_data)
 
     # 1.Label Encoding for sparse features,and do simple Transformation for dense features
