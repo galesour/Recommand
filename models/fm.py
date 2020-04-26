@@ -1,7 +1,7 @@
 '''
 @Author: 风满楼
 @Date: 2020-04-22 19:57:31
-@LastEditTime: 2020-04-26 17:01:57
+@LastEditTime: 2020-04-26 17:03:07
 @LastEditors: Please set LastEditors
 @Description: 实现FM模型
 @FilePath: /eyepetizer_recommends/recommends/frame_sort/models/fm.py
@@ -9,6 +9,7 @@
 import sys
 sys.path.append('../')
 import pandas as pd 
+import numpy as np 
 from tensorflow.keras import Model
 from tensorflow.keras.layers import Input, Concatenate
 from tensorflow.keras import backend as K 
@@ -37,7 +38,7 @@ if __name__ == "__main__":
     data[dense_features] = mms.fit_transform(data[dense_features]) # Normalized of the dense feature
     train_data = {}
     for item in sparse_features + dense_features:
-        train_data[item] = [[val] for val in data[item].values.tolist()]
+        train_data[item] = np.array([[val] for val in data[item].values.tolist()])
     print(train_data)
 
     # 2.count #unique features for each sparse field,and record dense feature field name
