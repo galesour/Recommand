@@ -1,7 +1,7 @@
 '''
 @Author: 风满楼
 @Date: 2020-04-22 19:57:31
-@LastEditTime: 2020-04-26 16:47:34
+@LastEditTime: 2020-04-26 16:56:10
 @LastEditors: Please set LastEditors
 @Description: 实现FM模型
 @FilePath: /eyepetizer_recommends/recommends/frame_sort/models/fm.py
@@ -22,14 +22,17 @@ from input import SparseClass, DenseClass, get_input_layer, get_embedding_layer
 
 if __name__ == "__main__":
     # 前期的数据处理
-    data = pd.read_csv('../data_set/criteo_sample.txt')[0:20] # 读取样例数据
-    labels = data['label']
+    data = pd.read_csv('../data_set/criteo_sample.txt')[0:20] # load data
     sparse_features = ['C' + str(i) for i in range(1, 27)]
     dense_features = ['I' + str(i) for i in range(1, 14)]
 
     data[sparse_features] = data[sparse_features].fillna('-1', )
     data[dense_features] = data[dense_features].fillna(0, )
     target = ['label']
+    train_data = {}
+    for item in sparse_features + dense_features:
+        train_data[item] = data[item]
+    print(train_data)
 
     # 1.Label Encoding for sparse features,and do simple Transformation for dense features
     for feat in sparse_features:
@@ -57,4 +60,13 @@ if __name__ == "__main__":
     y_dnn_order = DeepOrder(2,128)([sparse_embedding_layers, dense_embedding_layers]) # the dnn has two layer and each layer has 128 neonuals
     y_output = Combine()([y_one_order, y_two_order, y_dnn_order])
     model = Model(inputs = [sparse_input_layers, dense_input_layers], outputs=[y_output])
-    model.summary()
+    
+    model.compile(
+        loss="binary_crossentropy", 
+        optimizer="adam", 
+        metrics=['accuracy']
+        )
+
+
+
+
