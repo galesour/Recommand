@@ -1,7 +1,7 @@
 '''
 @Author: 风满楼
 @Date: 2020-04-22 19:57:31
-@LastEditTime: 2020-04-26 16:33:58
+@LastEditTime: 2020-04-26 16:47:34
 @LastEditors: Please set LastEditors
 @Description: 实现FM模型
 @FilePath: /eyepetizer_recommends/recommends/frame_sort/models/fm.py
@@ -50,11 +50,11 @@ if __name__ == "__main__":
         sparse_input_layers + dense_input_layers,
         sparse_input_column + dense_input_column,
     )
-    print(sparse_embedding_layers, dense_embedding_layers)
+    
     # build the model
     y_one_order = OneOrder()([sparse_input_layers, dense_input_layers])
     y_two_order = TwoOrder()([sparse_embedding_layers, dense_embedding_layers])
     y_dnn_order = DeepOrder(2,128)([sparse_embedding_layers, dense_embedding_layers]) # the dnn has two layer and each layer has 128 neonuals
     y_output = Combine()([y_one_order, y_two_order, y_dnn_order])
-    model = Model(inputs = [sparse_input_column, dense_input_column], outputs=[y_output])
+    model = Model(inputs = [sparse_input_layers, dense_input_layers], outputs=[y_output])
     model.summary()
