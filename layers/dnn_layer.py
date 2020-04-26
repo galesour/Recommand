@@ -1,7 +1,7 @@
 '''
 @Author: 风满楼
 @Date: 2020-04-25 21:51:14
-@LastEditTime: 2020-04-25 22:41:19
+@LastEditTime: 2020-04-26 11:58:56
 @LastEditors: Please set LastEditors
 @Description: 实现DeepFM中的deep部分
 @FilePath: /frame_sort/layers/dnn_layer.py
@@ -17,17 +17,13 @@ class DeepOrder(Layer):
         super(DeepOrder, self).__init__(**kwargs)
 
     def call(self, input):
-        print('高阶项计算....')
         sparse_embedding_input, dense_embedding_input = input
         all_fields = Concatenate(axis=1)(sparse_embedding_input + dense_embedding_input) # None * 39 * 5
-        print(all_fields.shape)
         dnn_input = Flatten()(all_fields) # None * (5 * 39)
-        print(dnn_input.shape)
         output = 0
         for i in range(self.height):
             dnn_input = Dense(self.width)(dnn_input)
         dnn_output = Dense(1)(dnn_input)
-        print(dnn_output.shape)
         return dnn_output
 
     def compute_output_shape(self, input_shape):

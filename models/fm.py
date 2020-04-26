@@ -1,7 +1,7 @@
 '''
 @Author: 风满楼
 @Date: 2020-04-22 19:57:31
-@LastEditTime: 2020-04-25 22:24:16
+@LastEditTime: 2020-04-26 12:55:28
 @LastEditors: Please set LastEditors
 @Description: 实现FM模型
 @FilePath: /eyepetizer_recommends/recommends/frame_sort/models/fm.py
@@ -14,6 +14,7 @@ from tensorflow.keras.layers import Input, Concatenate
 from tensorflow.keras import backend as K 
 from layers.one_order_layer import OneOrder
 from layers.two_order_layer import TwoOrder
+from layers.LR import Combine
 from layers.dnn_layer import DeepOrder
 from sklearn.preprocessing import LabelEncoder, MinMaxScaler
 from input import SparseClass, DenseClass, get_input_layer
@@ -44,5 +45,6 @@ if __name__ == "__main__":
     y_one_order = OneOrder()([sparse_input_layers, dense_input_layers])
     y_two_order = TwoOrder()([sparse_embedding_layers, dense_embedding_layers])
     y_dnn_order = DeepOrder(2,128)([sparse_embedding_layers, dense_embedding_layers]) # the dnn has two layer and each layer has 128 neonuals
-
-    
+    model = Combine()([y_one_order, y_two_order, y_dnn_order])
+    model.summary()
+        
