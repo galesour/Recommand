@@ -1,7 +1,7 @@
 '''
 @Author: 风满楼
 @Date: 2020-04-22 19:57:31
-@LastEditTime: 2020-04-26 17:21:46
+@LastEditTime: 2020-04-26 17:23:38
 @LastEditors: Please set LastEditors
 @Description: 实现FM模型
 @FilePath: /eyepetizer_recommends/recommends/frame_sort/models/fm.py
@@ -11,6 +11,7 @@ sys.path.append('../')
 import pandas as pd 
 import numpy as np 
 import tensorflow as tf 
+tf.config.experimental_functions_run_eagerly(True)
 from tensorflow.keras import Model
 from tensorflow.keras.layers import Input, Concatenate
 from tensorflow.keras import backend as K 
@@ -21,7 +22,6 @@ from layers.LR import Combine
 from layers.dnn_layer import DeepOrder
 from sklearn.preprocessing import LabelEncoder, MinMaxScaler
 from input import SparseClass, DenseClass, get_input_layer, get_embedding_layer
-tf.config.experimental_functions_run_eagerly(True)
 
 if __name__ == "__main__":
     # 前期的数据处理
