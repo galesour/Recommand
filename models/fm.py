@@ -1,7 +1,7 @@
 '''
 @Author: 风满楼
 @Date: 2020-04-22 19:57:31
-@LastEditTime: 2020-04-26 12:55:28
+@LastEditTime: 2020-04-26 15:48:09
 @LastEditors: Please set LastEditors
 @Description: 实现FM模型
 @FilePath: /eyepetizer_recommends/recommends/frame_sort/models/fm.py
@@ -12,6 +12,7 @@ import pandas as pd
 from tensorflow.keras import Model
 from tensorflow.keras.layers import Input, Concatenate
 from tensorflow.keras import backend as K 
+from tensorflow.keras import Model
 from layers.one_order_layer import OneOrder
 from layers.two_order_layer import TwoOrder
 from layers.LR import Combine
@@ -40,11 +41,15 @@ if __name__ == "__main__":
     # 2.count #unique features for each sparse field,and record dense feature field name
     sparse_input_column = [SparseClass(feat_name=feat, vocablary_size=data[feat].nunique()) for feat in sparse_features]
     dense_input_column = [DenseClass(feat_name=feat) for feat in dense_features]
+
+    # get the input and embedding layer
     sparse_input_layers, dense_input_layers = get_input_layer(sparse_input_column + dense_input_column, embedding=False)
     sparse_embedding_layers, dense_embedding_layers = get_input_layer(sparse_input_column + dense_input_column, embedding=True)
+    
+    # build the model
     y_one_order = OneOrder()([sparse_input_layers, dense_input_layers])
     y_two_order = TwoOrder()([sparse_embedding_layers, dense_embedding_layers])
     y_dnn_order = DeepOrder(2,128)([sparse_embedding_layers, dense_embedding_layers]) # the dnn has two layer and each layer has 128 neonuals
-    model = Combine()([y_one_order, y_two_order, y_dnn_order])
+    y_output = Combine()([y_one_order, y_two_order, y_dnn_order])
+    model = Model(inputs = [sparse_input_column, dense_input_column], outputs = [y])
     model.summary()
-        
