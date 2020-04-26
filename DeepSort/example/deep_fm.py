@@ -1,7 +1,7 @@
 '''
 @Author: 风满楼
 @Date: 2020-04-26 18:12:47
-@LastEditTime: 2020-04-26 18:20:06
+@LastEditTime: 2020-04-26 19:23:10
 @LastEditors: Please set LastEditors
 @Description: DeepFM实现DeepFM的例子
 @FilePath: /frame_sort/DeepSort/example/deep_fm.py
@@ -28,7 +28,7 @@ if __name__ == "__main__":
         data[feat] = lbe.fit_transform(data[feat]) # standardization of the sparse feature
     mms = MinMaxScaler(feature_range=(0, 1))
     data[dense_features] = mms.fit_transform(data[dense_features]) # Normalized of the dense feature
-    train_data = {}
+    train_data = {} # get the train data
     for item in sparse_features + dense_features:
         train_data[item] = np.array([[val] for val in data[item].values.tolist()])
     model = get_deep_fm_model(sparse_features, dense_features, data)

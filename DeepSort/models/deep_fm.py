@@ -1,7 +1,7 @@
 '''
 @Author: 风满楼
 @Date: 2020-04-22 19:57:31
-@LastEditTime: 2020-04-26 19:17:57
+@LastEditTime: 2020-04-26 19:23:49
 @LastEditors: Please set LastEditors
 @Description: 实现FM模型
 @FilePath: /eyepetizer_recommends/recommends/frame_sort/models/fm.py
@@ -23,6 +23,8 @@ from layers.dnn_layer import DeepOrder
 from models.input import SparseClass, DenseClass, get_input_layer, get_embedding_layer
 
 def get_deep_fm_model(sparse_features, dense_features, data):
+    print(sparse_features)
+    print(dense_features)
     # get the input class
     sparse_input_column = [SparseClass(feat_name=feat, vocablary_size=data[feat].nunique()) for feat in sparse_features]
     dense_input_column = [DenseClass(feat_name=feat) for feat in dense_features]
