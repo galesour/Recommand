@@ -1,7 +1,7 @@
 '''
 @Author: 风满楼
 @Date: 2020-04-23 17:11:14
-@LastEditTime: 2020-04-26 16:41:24
+@LastEditTime: 2020-04-26 16:42:41
 @LastEditors: Please set LastEditors
 @Description: 处理输入的类和功能函数
 @FilePath: /frame_sort/models/input.py
@@ -41,9 +41,9 @@ def get_input_layer(all_input, embedding=False):
     sparse_layer_list = []
     dense_layer_list = []
     for item in all_input:
-        if isinstance(SparseClass, item):
+        if isinstance(item, SparseClass):
             sparse_layer_list.append(Input(shape=(1,), name=item.feat_name))
-        elif isinstance(DenseClass, item):
+        elif isinstance(ite, DenseClass):
             dense_layer_list.append(Input(shape=(1,), name=item.feat_name))
     return sparse_layer_list, dense_layer_list
 
