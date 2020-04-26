@@ -1,7 +1,7 @@
 '''
 @Author: 风满楼
 @Date: 2020-04-22 20:00:48
-@LastEditTime: 2020-04-26 11:13:57
+@LastEditTime: 2020-04-26 11:27:11
 @LastEditors: Please set LastEditors
 @Description: In User Settings Edit
 @FilePath: /eyepetizer_recommends/recommends/frame_sort/layers/one_order.py
@@ -35,8 +35,7 @@ class OneOrder(Layer):
         sparse_inputs, dense_inputs = inputs
         output = 0
         for sparse_input in sparse_inputs:
-            # print(Embedding(sparse_input.shape[-1], 1)(sparse_input).shape) # (None, 1, 1)
-            output += Embedding(sparse_input.shape[-1], 1)(sparse_input)[:0,:]
+            output += Embedding(sparse_input.shape[-1], 1)(sparse_input)[:, 0, :]
         print(output.shape) # (None, 1, 1)
         dense_inputs = K.concatenate(dense_inputs)
         tmp = K.dot(dense_inputs, self.dense_weights) # (None, 1)
