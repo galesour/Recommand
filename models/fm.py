@@ -1,7 +1,7 @@
 '''
 @Author: 风满楼
 @Date: 2020-04-22 19:57:31
-@LastEditTime: 2020-04-26 16:58:17
+@LastEditTime: 2020-04-26 17:01:57
 @LastEditors: Please set LastEditors
 @Description: 实现FM模型
 @FilePath: /eyepetizer_recommends/recommends/frame_sort/models/fm.py
@@ -28,18 +28,17 @@ if __name__ == "__main__":
 
     data[sparse_features] = data[sparse_features].fillna('-1', )
     data[dense_features] = data[dense_features].fillna(0, )
-    target = ['label']
-    train_data = {}
-    for item in sparse_features + dense_features:
-        train_data[item] = data[item].values.tolist()
-    print(train_data)
-
+    targets = ['label']
     # 1.Label Encoding for sparse features,and do simple Transformation for dense features
     for feat in sparse_features:
         lbe = LabelEncoder()
         data[feat] = lbe.fit_transform(data[feat]) # standardization of the sparse feature
     mms = MinMaxScaler(feature_range=(0, 1))
     data[dense_features] = mms.fit_transform(data[dense_features]) # Normalized of the dense feature
+    train_data = {}
+    for item in sparse_features + dense_features:
+        train_data[item] = [[val] for val in data[item].values.tolist()]
+    print(train_data)
 
     # 2.count #unique features for each sparse field,and record dense feature field name
     sparse_input_column = [SparseClass(feat_name=feat, vocablary_size=data[feat].nunique()) for feat in sparse_features]
@@ -65,6 +64,11 @@ if __name__ == "__main__":
         loss="binary_crossentropy", 
         optimizer="adam", 
         metrics=['accuracy']
+        )
+    model.fit(
+        train_data,
+        targets, 
+        epochs=10
         )
 
 
