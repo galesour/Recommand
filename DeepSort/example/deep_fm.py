@@ -1,13 +1,14 @@
 '''
 @Author: 风满楼
 @Date: 2020-04-26 18:12:47
-@LastEditTime: 2020-04-26 19:23:10
+@LastEditTime: 2020-04-26 19:30:48
 @LastEditors: Please set LastEditors
 @Description: DeepFM实现DeepFM的例子
 @FilePath: /frame_sort/DeepSort/example/deep_fm.py
 '''
 import sys 
 sys.path.append('../')
+sys.path.append('../../')   
 import pandas as pd 
 import numpy as np 
 from sklearn.metrics import log_loss, roc_auc_score
@@ -15,7 +16,7 @@ from models.deep_fm import get_deep_fm_model
 from sklearn.preprocessing import LabelEncoder, MinMaxScaler
 
 if __name__ == "__main__":
-    data = pd.read_csv('/home/xddz/code/eyepetizer_recommends/data/dac/train.txt') # load data
+    data = pd.read_csv('/home/xddz/tools/jupyterlab/yining/Recommand/data_set/criteo_sample.txt') # load data
     sparse_features = ['C' + str(i) for i in range(1, 27)]
     dense_features = ['I' + str(i) for i in range(1, 14)]
 
