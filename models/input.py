@@ -1,7 +1,7 @@
 '''
 @Author: 风满楼
 @Date: 2020-04-23 17:11:14
-@LastEditTime: 2020-04-26 16:06:05
+@LastEditTime: 2020-04-26 16:32:13
 @LastEditors: Please set LastEditors
 @Description: 处理输入的类和功能函数
 @FilePath: /frame_sort/models/input.py
@@ -55,3 +55,16 @@ def get_input_layer(all_input, embedding=False):
                     RepeatVector(1)(Dense(item.embedding_dim)(Input(shape=(1,), name=item.feat_name)))
                 )
     return sparse_layer_list, dense_layer_list
+
+def get_embedding_layer(all_input_layers, all_input_column):
+    sparse_embedding_layers = []
+    dense_embedding_layers = []
+    for item in all_input_layers: 
+        for item_class in all_input_column:
+            if isinstance(item_class, SparseClass):
+                if item.name.split(":")[0] == item_class.feat_name:
+                    sparse_embedding_layers.append(Embedding(item_class.vocablary_size,item_class.embedding_dim)(item))
+            if isinstance(item_class, DenseClass):
+                if item.name.split(":")[0] == item_class.feat_name:
+                    dense_embedding_layers.append(Embedding(item_class.vocablary_size, item_class.embedding_dim)(item))
+    return sparse_embedding_layers, dense_embedding_layers

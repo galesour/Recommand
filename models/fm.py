@@ -1,7 +1,7 @@
 '''
 @Author: 风满楼
 @Date: 2020-04-22 19:57:31
-@LastEditTime: 2020-04-26 16:08:31
+@LastEditTime: 2020-04-26 16:33:58
 @LastEditors: Please set LastEditors
 @Description: 实现FM模型
 @FilePath: /eyepetizer_recommends/recommends/frame_sort/models/fm.py
@@ -18,7 +18,7 @@ from layers.two_order_layer import TwoOrder
 from layers.LR import Combine
 from layers.dnn_layer import DeepOrder
 from sklearn.preprocessing import LabelEncoder, MinMaxScaler
-from input import SparseClass, DenseClass, get_input_layer
+from input import SparseClass, DenseClass, get_input_layer, get_embedding_layer
 
 if __name__ == "__main__":
     # 前期的数据处理
@@ -45,17 +45,16 @@ if __name__ == "__main__":
     # get the input and embedding layer
     sparse_input_layers, dense_input_layers = get_input_layer(
         sparse_input_column + dense_input_column, 
-        embedding=False
         )
-    sparse_embedding_layers, dense_embedding_layers = get_input_layer(
-        sparse_input_column + dense_input_column, 
-        embedding=True
-        )
+    sparse_embedding_layers, dense_embedding_layers = get_embedding_layer(
+        sparse_input_layers + dense_input_layers,
+        sparse_input_column + dense_input_column,
+    )
+    print(sparse_embedding_layers, dense_embedding_layers)
     # build the model
     y_one_order = OneOrder()([sparse_input_layers, dense_input_layers])
     y_two_order = TwoOrder()([sparse_embedding_layers, dense_embedding_layers])
     y_dnn_order = DeepOrder(2,128)([sparse_embedding_layers, dense_embedding_layers]) # the dnn has two layer and each layer has 128 neonuals
     y_output = Combine()([y_one_order, y_two_order, y_dnn_order])
-    
     model = Model(inputs = [sparse_input_column, dense_input_column], outputs=[y_output])
     model.summary()
