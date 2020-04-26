@@ -1,7 +1,7 @@
 '''
 @Author: 风满楼
 @Date: 2020-04-23 17:11:14
-@LastEditTime: 2020-04-26 16:32:13
+@LastEditTime: 2020-04-26 16:37:29
 @LastEditors: Please set LastEditors
 @Description: 处理输入的类和功能函数
 @FilePath: /frame_sort/models/input.py
@@ -40,20 +40,14 @@ class DenseClass():
 def get_input_layer(all_input, embedding=False):
     sparse_layer_list = []
     dense_layer_list = []
-    if not embedding :
-        for item in all_input:
+    
+    for item in all_input:
+        if isinstance(item, SparseClass):
             sparse_layer_list.append(Input(shape=(1,), name=item.feat_name))
+        elif isinstance(item, DenseClass):
             dense_layer_list.append(Input(shape=(1,), name=item.feat_name))
-    else: 
-        for item in all_input:
-            if isinstance(item, SparseClass):
-                sparse_layer_list.append(
-                    Embedding(item.vocablary_size,item.embedding_dim)(Input(shape=(1,), name=item.feat_name)) # (None, 1, 5)
-                    )
-            elif isinstance(item, DenseClass):
-                dense_layer_list.append(
-                    RepeatVector(1)(Dense(item.embedding_dim)(Input(shape=(1,), name=item.feat_name)))
-                )
+        else:
+            raise ValueError('except SparseClass or DenseClass but get {}'.format(type(item)))
     return sparse_layer_list, dense_layer_list
 
 def get_embedding_layer(all_input_layers, all_input_column):
@@ -66,5 +60,5 @@ def get_embedding_layer(all_input_layers, all_input_column):
                     sparse_embedding_layers.append(Embedding(item_class.vocablary_size,item_class.embedding_dim)(item))
             if isinstance(item_class, DenseClass):
                 if item.name.split(":")[0] == item_class.feat_name:
-                    dense_embedding_layers.append(Embedding(item_class.vocablary_size, item_class.embedding_dim)(item))
+                    dense_embedding_layers.append(Embedding(item_class.embedding_dim)(item))
     return sparse_embedding_layers, dense_embedding_layers
