@@ -1,7 +1,7 @@
 '''
 @Author: 风满楼
 @Date: 2020-04-22 19:57:31
-@LastEditTime: 2020-04-26 17:11:56
+@LastEditTime: 2020-04-26 17:21:46
 @LastEditors: Please set LastEditors
 @Description: 实现FM模型
 @FilePath: /eyepetizer_recommends/recommends/frame_sort/models/fm.py
@@ -10,6 +10,7 @@ import sys
 sys.path.append('../')
 import pandas as pd 
 import numpy as np 
+import tensorflow as tf 
 from tensorflow.keras import Model
 from tensorflow.keras.layers import Input, Concatenate
 from tensorflow.keras import backend as K 
@@ -20,6 +21,7 @@ from layers.LR import Combine
 from layers.dnn_layer import DeepOrder
 from sklearn.preprocessing import LabelEncoder, MinMaxScaler
 from input import SparseClass, DenseClass, get_input_layer, get_embedding_layer
+tf.config.experimental_functions_run_eagerly(True)
 
 if __name__ == "__main__":
     # 前期的数据处理
@@ -39,8 +41,6 @@ if __name__ == "__main__":
     train_data = {}
     for item in sparse_features + dense_features:
         train_data[item] = np.array([[val] for val in data[item].values.tolist()])
-    print(train_data)
-
     # 2.count #unique features for each sparse field,and record dense feature field name
     sparse_input_column = [SparseClass(feat_name=feat, vocablary_size=data[feat].nunique()) for feat in sparse_features]
     dense_input_column = [DenseClass(feat_name=feat) for feat in dense_features]
