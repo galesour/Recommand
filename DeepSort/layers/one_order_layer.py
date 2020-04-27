@@ -1,14 +1,15 @@
 '''
 @Author: 风满楼
 @Date: 2020-04-22 20:00:48
-@LastEditTime: 2020-04-26 17:51:52
+@LastEditTime: 2020-04-27 19:33:32
 @LastEditors: Please set LastEditors
 @Description: In User Settings Edit
 @FilePath: /eyepetizer_recommends/recommends/frame_sort/layers/one_order.py
 '''
 from tensorflow.keras.layers import Layer, Embedding, Input
 from tensorflow.keras import backend as K 
-
+import tensorflow as tf
+tf.config.experimental_run_functions_eagerly(True)
 
 class OneOrder(Layer):
     '''
